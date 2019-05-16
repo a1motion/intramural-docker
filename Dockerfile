@@ -27,15 +27,16 @@ RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | ba
     && nvm alias default 10 \
     && nvm use 10
 
-USER mural:mural
-
-WORKDIR /home/mural
-
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 RUN apt-get update
 RUN apt-get install --no-install-recommends yarn
+
+RUN groupadd mural
+RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo,mural -u 1000 mural
+USER mural:mural
+WORKDIR /home/mural
 
 ENV CI true
 ENV NODE_ENV test
