@@ -34,3 +34,6 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 
 RUN apt-get update
 RUN apt-get install --no-install-recommends yarn
+
+ENV CI=true
+ENV NODE_ENV=test
