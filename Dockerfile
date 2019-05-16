@@ -34,7 +34,7 @@ RUN apt-get update
 RUN apt-get install --no-install-recommends yarn
 
 RUN groupadd mural
-RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo,mural -u 1000 mural
+RUN useradd -rm -d /home/mural -s /bin/bash -g root -G sudo,mural -u 1000 mural
 USER mural:mural
 WORKDIR /home/mural
 
