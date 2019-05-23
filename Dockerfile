@@ -1,8 +1,5 @@
 FROM ubuntu:18.10
 
-RUN groupadd mural
-RUN useradd -rm -d /home/mural -s /bin/bash -g root -G sudo,mural -u 1000 mural
-
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN apt-get update && apt-get install -y -q --no-install-recommends \
@@ -13,8 +10,14 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends \
     git \
     libssl-dev \
     wget \
-    gnupg2
+    gnupg2 \
+    sudo
 
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN groupadd mural
+RUN useradd -rm -d /home/mural -s /bin/bash -g root -G sudo,mural -u 1000 mural
+RUN adduser mural sudo
 
 RUN mkdir -p /home/mural/.nvm
 ENV NVM_DIR /home/mural/.nvm
